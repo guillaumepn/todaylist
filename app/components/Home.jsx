@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../constants/routes';
 import styles from './Home.css';
-import TodoList from './TodoList';
+import TodoList from './Todos/TodoList';
+import TodosContainer from './Todos/TodosContainer';
 
 type Props = {};
 
@@ -13,7 +14,7 @@ const Home = (props: Props) => {
   return (
     <div className={styles.container} data-tid="container">
       <h2>TodayList</h2>
-      <TodoList />
+      <TodosContainer />
       {/* <Link to={routes.COUNTER}>to Counter</Link> */}
     </div>
   );
