@@ -8,8 +8,7 @@ export const todos = (state = initialTodoState, action) => {
       break;
     }
     case UPDATE_TODO: {
-      const todos = [...state, action.payload];
-      return todos;
+      return action.payload;
       break;
     }
     default:
