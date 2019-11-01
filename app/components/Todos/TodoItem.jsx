@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function TodoItem({ todo, todos, setTodos }) {
+export default function TodoItem({ todo, todos, updateTodo }) {
   const toggleTodoStatus = event => {
     const status = event.currentTarget.checked;
-    setTodos(todos.map(t => (t.id === todo.id ? { ...t, status } : t)));
+    updateTodo(todos.map(t => (t.id === todo.id ? { ...t, status } : t)));
   };
 
   return (

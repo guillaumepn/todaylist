@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 
-export default function AddTodo({todos, setTodos}) {
+export default function AddTodo({todos, createTodo}) {
   const inputRef = useRef();
 
   const onAddTodoSubmit = (event) => {
@@ -14,7 +14,7 @@ export default function AddTodo({todos, setTodos}) {
         text: todoName,
         status: false
       }
-      setTodos([...todos, newTodo]);
+      createTodo(newTodo);
       inputRef.current.value = '';
       console.debug(inputRef.current);
     }

@@ -1,13 +1,33 @@
-// @flow
-import React, { Component } from 'react';
-import Home from '../components/Home';
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-type Props = {};
+import * as TodoActions from '../actions/todos';
+import Todos from '../components/Todos/Todos';
 
-export default class HomePage extends Component<Props> {
-  props: Props;
+type Props = {
+  todos: Todo[],
+  createTodo: (todo: Todo) => void,
+  updateTodo: (todo: Todo) => void
+};
 
-  render() {
-    return <Home />;
-  }
+const HomePage = ({ todos, createTodo, updateTodo }: Props) => {
+  console.log("TCL: HomePage -> todos", todos)
+  return <Todos todos={todos} createTodo={createTodo} updateTodo={updateTodo} />
 }
+
+function mapStateToProps(state) {
+  console.log("TCL: mapStateToProps -> state", state)
+  return {
+    todos: state.todos
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(TodoActions, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomePage);
