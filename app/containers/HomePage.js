@@ -21,12 +21,10 @@ export const jsonStore = new Store({
 
 const HomePage = ({ createTodo, updateTodo }: Props) => {
   const todos = jsonStore.get('todos');
-  console.log("TCL: todos", todos)
   return <Todos todos={todos} createTodo={createTodo} updateTodo={updateTodo} />
 }
 
 function mapStateToProps(state) {
-  console.log("TCL: mapStateToProps -> state", state)
   return {
     todos: state.todos
   };

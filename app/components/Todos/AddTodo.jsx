@@ -14,7 +14,8 @@ export default function AddTodo({todos, createTodo}) {
       const newTodo = {
         id: todos.length,
         text: todoName,
-        status: false
+        status: false,
+        date: new Date()
       }
       createTodo(newTodo);
       inputRef.current.value = '';

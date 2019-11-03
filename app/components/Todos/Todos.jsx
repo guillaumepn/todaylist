@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Heading } from "@chakra-ui/core";
+
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
 import type { Todo } from '../../reducers/types';
@@ -10,11 +12,9 @@ type Props = {
 };
 
 export default function Todos({ todos, createTodo, updateTodo }: Props) {
-  console.debug('TCL: Todos -> todos', todos);
-
   return (
     <div data-tid="container">
-      <h2>TodayList</h2>
+      <Heading as="h1" size="2xl">TodayList</Heading>
       <AddTodo todos={todos} createTodo={createTodo} />
       <TodoList todos={todos} updateTodo={updateTodo} />
     </div>
