@@ -1,8 +1,6 @@
 import React from 'react';
 import { Checkbox, useToast } from '@chakra-ui/core';
 
-import { jsonStore } from '../../containers/HomePage';
-
 export default function TodoItem({ todo, todos, updateTodo }) {
   const toast = useToast();
 
@@ -19,10 +17,6 @@ export default function TodoItem({ todo, todos, updateTodo }) {
   const toggleTodoStatus = event => {
     const status = event.currentTarget.checked;
     updateTodo(todos.map(t => (t.id === todo.id ? { ...t, status } : t)));
-    jsonStore.set(
-      'todos',
-      todos.map(t => (t.id === todo.id ? { ...t, status } : t))
-    );
     if (status) {
       showToast();
     }

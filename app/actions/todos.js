@@ -1,18 +1,26 @@
+import {jsonStore} from '../store';
+
 export const CREATE_TODO = 'CREATE_TODO';
 export const UPDATE_TODO = 'UPDATE_TODO';
 
 export const initialTodoState = [];
 
 export const createTodo = (todo) => {
+  const todos = jsonStore.get('todos');
+  jsonStore.set('todos', [...todos, todo]);
   return {
     type: CREATE_TODO,
     payload: todo
   }
 }
 
-export const updateTodo = (todo) => {
+export const updateTodo = (todos) => {
+  jsonStore.set(
+    'todos',
+    todos
+  );
   return {
     type: UPDATE_TODO,
-    payload: todo
+    payload: todos
   }
 }

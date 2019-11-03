@@ -1,8 +1,6 @@
 import React, {useRef} from 'react'
 import { Input } from "@chakra-ui/core";
 
-import {jsonStore} from '../../containers/HomePage';
-
 const getRandomID = () => {
   return Math.random().toString(36).substr(2, 9) + (new Date().getTime()).toString(16);
 }
@@ -24,8 +22,6 @@ export default function AddTodo({todos, createTodo}) {
       }
       createTodo(newTodo);
       inputRef.current.value = '';
-      console.debug(inputRef.current);
-      jsonStore.set('todos', [...todos, newTodo]);
     }
   }
 
