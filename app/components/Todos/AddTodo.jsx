@@ -3,6 +3,10 @@ import { Input } from "@chakra-ui/core";
 
 import {jsonStore} from '../../containers/HomePage';
 
+const getRandomID = () => {
+  return Math.random().toString(36).substr(2, 9) + (new Date().getTime()).toString(16);
+}
+
 export default function AddTodo({todos, createTodo}) {
   const inputRef = useRef();
 
@@ -13,7 +17,7 @@ export default function AddTodo({todos, createTodo}) {
     const todoName = data.get('todoname');
     if (todoName) {
       const newTodo = {
-        id: todos.length,
+        id: getRandomID(),
         text: todoName,
         status: false,
         date: new Date()
