@@ -5,6 +5,7 @@ export type RootState = {
 }
 
 export type Todo = {
+  +id: number | string,
   +title: string,
   +description: string,
   +status: boolean,

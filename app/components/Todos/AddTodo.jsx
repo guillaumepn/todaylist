@@ -1,5 +1,7 @@
 import React, {useRef} from 'react'
 
+import {jsonStore} from '../../containers/HomePage';
+
 export default function AddTodo({todos, createTodo}) {
   const inputRef = useRef();
 
@@ -17,6 +19,7 @@ export default function AddTodo({todos, createTodo}) {
       createTodo(newTodo);
       inputRef.current.value = '';
       console.debug(inputRef.current);
+      jsonStore.set('todos', [...todos, newTodo]);
     }
   }
 
