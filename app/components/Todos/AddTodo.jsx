@@ -1,4 +1,5 @@
 import React, {useRef} from 'react'
+import { Input } from "@chakra-ui/core";
 
 import {jsonStore} from '../../containers/HomePage';
 
@@ -26,7 +27,7 @@ export default function AddTodo({todos, createTodo}) {
 
   return (
       <form onSubmit={onAddTodoSubmit}>
-        <input type="text" ref={inputRef} name="todoname" />
+        <Input placeholder='"Read a chapter", "Do 50 push-ups"...' ref={inputRef} name="todoname" my={5} />
       </form>
   )
 }
