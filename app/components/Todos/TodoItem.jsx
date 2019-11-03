@@ -1,7 +1,7 @@
 import React from 'react';
-import { Checkbox, useToast } from '@chakra-ui/core';
+import { Checkbox, CloseButton, Flex, useToast } from '@chakra-ui/core';
 
-export default function TodoItem({ todo, todos, updateTodo }) {
+export default function TodoItem({ todo, todos, updateTodo, removeTodo }) {
   const toast = useToast();
 
   const showToast = () => {
@@ -22,8 +22,12 @@ export default function TodoItem({ todo, todos, updateTodo }) {
     }
   };
 
+  const removeTodoItem = () => {
+    removeTodo(todos.filter(t => t.id !== todo.id));
+  }
+
   return (
-    <div className={todo.status ? 'completed' : ''}>
+    <Flex align="center" className={todo.status ? 'completed' : ''}>
       <Checkbox
         size="lg"
         variantColor="green"
@@ -33,6 +37,7 @@ export default function TodoItem({ todo, todos, updateTodo }) {
       >
         {todo.text}
       </Checkbox>
-    </div>
+      <CloseButton onClick={removeTodoItem} size="sm" ml={1} />
+    </Flex>
   );
 }

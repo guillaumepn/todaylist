@@ -8,15 +8,16 @@ import type { Todo } from '../../reducers/types';
 type Props = {
   todos: Todo[],
   createTodo: (todo: Todo) => void,
-  updateTodo: (todo: Todo) => void
+  updateTodo: (todos: Todo[]) => void,
+  removeTodo: (todos: Todo[]) => void
 };
 
-export default function Todos({ todos, createTodo, updateTodo }: Props) {
+export default function Todos({ todos, createTodo, updateTodo, removeTodo }: Props) {
   return (
     <div data-tid="container">
       <Heading as="h1" size="2xl">TodayList</Heading>
       <AddTodo todos={todos} createTodo={createTodo} />
-      <TodoList todos={todos} updateTodo={updateTodo} />
+      <TodoList todos={todos} updateTodo={updateTodo} removeTodo={removeTodo} />
     </div>
   );
 }
