@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as TodoActions from '../actions/todos';
 import Todos from '../components/Todos/Todos';
 import { jsonStore } from '../store';
+import { Todo } from '../reducers/types';
 
 type Props = {
   createTodo: (todo: Todo) => void,
@@ -15,7 +16,12 @@ type Props = {
 const HomePage = ({ createTodo, updateTodo, removeTodo }: Props) => {
   const todos = jsonStore.get('todos');
   return (
-    <Todos todos={todos} createTodo={createTodo} updateTodo={updateTodo} removeTodo={removeTodo} />
+    <Todos
+      todos={todos}
+      createTodo={createTodo}
+      updateTodo={updateTodo}
+      removeTodo={removeTodo}
+    />
   );
 };
 

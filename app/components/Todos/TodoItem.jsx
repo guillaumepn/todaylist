@@ -1,18 +1,32 @@
 import React from 'react';
-import { Checkbox, CloseButton, Flex, useToast } from '@chakra-ui/core';
+import {
+  Button,
+  Box,
+  Checkbox,
+  CloseButton,
+  Flex,
+  Icon,
+  useToast
+} from '@chakra-ui/core';
 
-export default function TodoItem({ todo, todos, updateTodo, removeTodo }) {
+export default function TodoItem({
+  todo,
+  todos,
+  updateTodo,
+  removeTodo,
+  setSelectedTodo
+}) {
   const toast = useToast();
 
   const showToast = () => {
     toast({
-      title: "Good job!",
+      title: 'Good job!',
       description: "You've just completed a task",
-      status: "success",
+      status: 'success',
       duration: 5000,
-      isClosable: true,
-    })
-  }
+      isClosable: true
+    });
+  };
 
   const toggleTodoStatus = event => {
     const status = event.currentTarget.checked;
@@ -24,7 +38,12 @@ export default function TodoItem({ todo, todos, updateTodo, removeTodo }) {
 
   const removeTodoItem = () => {
     removeTodo(todos.filter(t => t.id !== todo.id));
-  }
+  };
+
+  const onSelectTodo = () => {
+    console.log('TCL: onSelectTodo -> todo', todo);
+    setSelectedTodo(todo);
+  };
 
   return (
     <Flex align="center" className={todo.status ? 'completed' : ''}>
@@ -34,10 +53,12 @@ export default function TodoItem({ todo, todos, updateTodo, removeTodo }) {
         type="checkbox"
         isChecked={todo.status}
         onChange={toggleTodoStatus}
-      >
+        mr={2}
+      />
+      <Box as="button" onClick={onSelectTodo}>
         {todo.text}
-      </Checkbox>
-      <CloseButton onClick={removeTodoItem} size="sm" ml={1} />
+      </Box>
+      <CloseButton onClick={removeTodoItem} size="sm" mx={1} />
     </Flex>
   );
 }
