@@ -11,7 +11,12 @@ import {
   FormLabel,
   FormErrorMessage,
   FormHelperText,
-  Button
+  Button,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper
 } from '@chakra-ui/core';
 
 const TodoOptions = ({ todo, setSelectedTodo }) => {
@@ -23,8 +28,13 @@ const TodoOptions = ({ todo, setSelectedTodo }) => {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
+    console.log('TCL: onOptionsSubmit -> data', data);
     const todoName = data.get('todoName');
-    console.log('TCL: onOptionsSubmit -> todoName', todoName);
+    const todoHours = data.get('todoHours');
+    const todoMinutes = data.get('todoMinutes');
+    const n = new Notification(todoName, {
+      body: `it is ${todoHours}:${todoMinutes}`
+    });
   };
 
   return (
@@ -40,11 +50,29 @@ const TodoOptions = ({ todo, setSelectedTodo }) => {
               onChange={onTodoNameChange}
               value={todo.text}
             />
-            <FormHelperText id="email-helper-text">
-              We'll never share your email.
-            </FormHelperText>
+            <FormLabel mt={4}>Time of task</FormLabel>
+            <Box display="flex" alignItems="center">
+              <NumberInput defaultValue={0} min={0} max={23}>
+                <NumberInputField name="todoHours" />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+              &nbsp;{':'}&nbsp;
+              <NumberInput defaultValue={0} min={0} max={59}>
+                <NumberInputField name="todoMinutes" />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+              <FormHelperText m={0} ml={4} fontStyle="italic">
+                (H:m)
+              </FormHelperText>
+            </Box>
             <Button type="submit" mt={4}>
-              Submit
+              Update task
             </Button>
           </FormControl>
         </form>
