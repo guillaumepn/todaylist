@@ -30,6 +30,7 @@ export default function Todos({
         todos={todos}
         updateTodo={updateTodo}
         removeTodo={removeTodo}
+        selectedTodo={selectedTodo}
         setSelectedTodo={setSelectedTodo}
       />
       <TodoOptions todo={selectedTodo} setSelectedTodo={setSelectedTodo} />

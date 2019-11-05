@@ -6,7 +6,8 @@ export default function TodoList({
   todos,
   updateTodo,
   removeTodo,
-  setSelectedTodo
+  setSelectedTodo,
+  selectedTodo
 }) {
   return (
     <div className="todolist">
@@ -19,6 +20,7 @@ export default function TodoList({
               updateTodo={updateTodo}
               removeTodo={removeTodo}
               setSelectedTodo={setSelectedTodo}
+              isSelected={selectedTodo && selectedTodo.id === todo.id}
             />
           ))
         : null}

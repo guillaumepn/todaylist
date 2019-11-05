@@ -14,7 +14,8 @@ export default function TodoItem({
   todos,
   updateTodo,
   removeTodo,
-  setSelectedTodo
+  setSelectedTodo,
+  isSelected
 }) {
   const toast = useToast();
 
@@ -55,7 +56,13 @@ export default function TodoItem({
         onChange={toggleTodoStatus}
         mr={2}
       />
-      <Box as="button" onClick={onSelectTodo}>
+      <Box
+        as="button"
+        onClick={onSelectTodo}
+        style={
+          isSelected ? { color: 'green', textDecoration: 'underline' } : {}
+        }
+      >
         {todo.text}
       </Box>
       <CloseButton onClick={removeTodoItem} size="sm" mx={1} />
