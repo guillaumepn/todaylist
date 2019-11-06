@@ -2,15 +2,15 @@ import type { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux';
 
 export type RootState = {
   todos: Todo[]
-}
+};
 
 export type Todo = {
   +id: number | string,
   +title: string,
   +description: string,
   +status: boolean,
-  +date: Date,
-}
+  +date: Date
+};
 
 export type Action = {
   +type: string

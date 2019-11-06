@@ -19,22 +19,44 @@ import {
   NumberDecrementStepper
 } from '@chakra-ui/core';
 
-const TodoOptions = ({ todo, setSelectedTodo }) => {
+const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
   const onTodoNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedTodo({ ...todo, text: event.currentTarget.value });
+  };
+
+  const onTodoHoursChange = (value: string) => {
+    const date = new Date(todo.date);
+    date.setHours(parseInt(value));
+    setSelectedTodo({ ...todo, date });
+  };
+
+  const onTodoMinutesChange = (value: string) => {
+    const date = new Date(todo.date);
+    date.setMinutes(parseInt(value));
+    setSelectedTodo({ ...todo, date });
   };
 
   const onOptionsSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    console.log('TCL: onOptionsSubmit -> data', data);
     const todoName = data.get('todoName');
     const todoHours = data.get('todoHours');
     const todoMinutes = data.get('todoMinutes');
-    const n = new Notification(todoName, {
-      body: `it is ${todoHours}:${todoMinutes}`
-    });
+
+    const todoDate = new Date(todo.date);
+    todoDate.setHours(parseInt(todoHours));
+    todoDate.setMinutes(parseInt(todoMinutes));
+
+    updateTodo(
+      todos.map(t =>
+        t.id === todo.id ? { ...todo, text: todoName, date: todoDate } : t
+      )
+    );
+
+    // const n = new Notification(todoName, {
+    //   body: `it is ${todoHours}:${todoMinutes}`
+    // });
   };
 
   return (
@@ -52,7 +74,12 @@ const TodoOptions = ({ todo, setSelectedTodo }) => {
             />
             <FormLabel mt={4}>Time of task</FormLabel>
             <Box display="flex" alignItems="center">
-              <NumberInput defaultValue={0} min={0} max={23}>
+              <NumberInput
+                value={new Date(todo.date).getHours()}
+                min={0}
+                max={23}
+                onChange={onTodoHoursChange}
+              >
                 <NumberInputField name="todoHours" />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
@@ -60,7 +87,12 @@ const TodoOptions = ({ todo, setSelectedTodo }) => {
                 </NumberInputStepper>
               </NumberInput>
               &nbsp;{':'}&nbsp;
-              <NumberInput defaultValue={0} min={0} max={59}>
+              <NumberInput
+                value={new Date(todo.date).getMinutes()}
+                onChange={onTodoMinutesChange}
+                min={0}
+                max={59}
+              >
                 <NumberInputField name="todoMinutes" />
                 <NumberInputStepper>
                   <NumberIncrementStepper />

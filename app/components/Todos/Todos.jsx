@@ -1,10 +1,11 @@
+// @flow
 import React, { useState } from 'react';
 import { Heading } from '@chakra-ui/core';
 
+import type { Todo } from '../../reducers/types';
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
 import TodoOptions from './TodoOptions';
-import type { Todo } from '../../reducers/types';
 
 type Props = {
   todos: Todo[],
@@ -19,7 +20,8 @@ export default function Todos({
   updateTodo,
   removeTodo
 }: Props) {
-  const [selectedTodo, setSelectedTodo] = useState(null);
+  const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
+
   return (
     <div data-tid="container">
       <Heading as="h1" size="2xl">
@@ -33,7 +35,12 @@ export default function Todos({
         selectedTodo={selectedTodo}
         setSelectedTodo={setSelectedTodo}
       />
-      <TodoOptions todo={selectedTodo} setSelectedTodo={setSelectedTodo} />
+      <TodoOptions
+        todo={selectedTodo}
+        todos={todos}
+        setSelectedTodo={setSelectedTodo}
+        updateTodo={updateTodo}
+      />
     </div>
   );
 }
