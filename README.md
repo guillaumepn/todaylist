@@ -2,9 +2,10 @@
 
 TODO :
 
-- [ ] Set time/date for a todo
-- [ ] Set basic repetition (daily, weekly...)
+- [x] Set time/date for a todo
 - [ ] Trigger system notification on todo's time
+- [ ] Define specific reset hours (all todos become unchecked)
+- [ ] Set basic repetition (daily, weekly...)
 
 Bonus :
 
