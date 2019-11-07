@@ -20,22 +20,6 @@ import {
 } from '@chakra-ui/core';
 
 const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
-  const onTodoNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedTodo({ ...todo, text: event.currentTarget.value });
-  };
-
-  const onTodoHoursChange = (value: string) => {
-    const date = new Date(todo.date);
-    date.setHours(parseInt(value));
-    setSelectedTodo({ ...todo, date });
-  };
-
-  const onTodoMinutesChange = (value: string) => {
-    const date = new Date(todo.date);
-    date.setMinutes(parseInt(value));
-    setSelectedTodo({ ...todo, date });
-  };
-
   const onOptionsSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -53,6 +37,22 @@ const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
         t.id === todo.id ? { ...todo, text: todoName, date: todoDate } : t
       )
     );
+  };
+
+  const onTodoNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedTodo({ ...todo, text: event.currentTarget.value });
+  };
+
+  const onTodoHoursChange = (value: string) => {
+    const date = new Date(todo.date);
+    date.setHours(parseInt(value));
+    setSelectedTodo({ ...todo, date });
+  };
+
+  const onTodoMinutesChange = (value: string) => {
+    const date = new Date(todo.date);
+    date.setMinutes(parseInt(value));
+    setSelectedTodo({ ...todo, date });
   };
 
   return (

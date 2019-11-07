@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Alert,
@@ -20,21 +20,32 @@ import {
   NumberDecrementStepper
 } from '@chakra-ui/core';
 
-const GlobalSettings = () => {
+const GlobalSettings = ({ settings, updateSettings }) => {
+  const [resetHours, setResetHours] = useState(settings.resetHours || 0);
+  const [resetMinutes, setResetMinutes] = useState(settings.resetMinutes || 0);
   const onOptionsSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    const resetHours = data.get('resetHours');
-    const resetMinutes = data.get('resetMinutes');
+    const newResetHours = data.get('resetHours');
+    const newResetMinutes = data.get('resetMinutes');
+    const newSettings = {
+      resetHours: newResetHours,
+      resetMinutes: newResetMinutes
+    };
+    updateSettings(newSettings);
   };
 
   const onResetHoursChange = (value: string) => {
-    console.log('reset hours');
+    console.log('reset hours', value, typeof value);
+    const hours = Number(value);
+    setResetHours(hours);
   };
 
   const onResetMinutesChange = (value: string) => {
     console.log('reset min');
+    const minutes = Number(value);
+    setResetMinutes(minutes);
   };
 
   return (
@@ -46,7 +57,7 @@ const GlobalSettings = () => {
           <FormLabel mt={4}>Time of task</FormLabel>
           <Box display="flex" alignItems="center">
             <NumberInput
-              value={new Date(todo.date).getHours()}
+              value={resetHours}
               min={0}
               max={23}
               onChange={onResetHoursChange}
@@ -59,7 +70,7 @@ const GlobalSettings = () => {
             </NumberInput>
             &nbsp;{':'}&nbsp;
             <NumberInput
-              value={new Date(todo.date).getMinutes()}
+              value={resetMinutes}
               onChange={onResetMinutesChange}
               min={0}
               max={59}

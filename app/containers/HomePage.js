@@ -1,21 +1,29 @@
+// @flow
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import schedule from 'node-schedule';
 
 import * as TodoActions from '../actions/todos';
+import * as SettingsActions from '../actions/settings';
 import Todos from '../components/Todos/Todos';
 import { jsonStore } from '../store';
-import { Todo } from '../reducers/types';
+import type { Todo, Settings } from '../reducers/types';
 import GlobalSettings from '../components/GlobalSettings';
 
 type Props = {
   createTodo: (todo: Todo) => void,
   updateTodo: (todos: Todo[]) => void,
-  removeTodo: (todos: Todo[]) => void
+  removeTodo: (todos: Todo[]) => void,
+  updateSettings: (settings: Settings) => void
 };
 
-const HomePage = ({ createTodo, updateTodo, removeTodo }: Props) => {
+const HomePage = ({
+  createTodo,
+  updateTodo,
+  removeTodo,
+  updateSettings
+}: Props) => {
   /* Cron for triggering todos notifiations :
 *    *    *    *    *    *
 ┬    ┬    ┬    ┬    ┬    ┬
@@ -29,6 +37,8 @@ const HomePage = ({ createTodo, updateTodo, removeTodo }: Props) => {
    */
 
   const todos = jsonStore.get('todos');
+  const settings = jsonStore.get('settings');
+  console.log('TCL: HomePage -> settings', settings);
 
   todos.forEach(todo => {
     const date = new Date(todo.date);
@@ -50,19 +60,20 @@ const HomePage = ({ createTodo, updateTodo, removeTodo }: Props) => {
         updateTodo={updateTodo}
         removeTodo={removeTodo}
       />
-      <GlobalSettings />
+      <GlobalSettings settings={settings} updateSettings={updateSettings} />
     </>
   );
 };
 
 function mapStateToProps(state) {
   return {
-    todos: state.todos
+    todos: state.todos,
+    settings: state.settings
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(TodoActions, dispatch);
+  return bindActionCreators({ ...TodoActions, ...SettingsActions }, dispatch);
 }
 
 export default connect(
