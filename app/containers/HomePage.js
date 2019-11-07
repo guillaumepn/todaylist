@@ -38,8 +38,17 @@ const HomePage = ({
 
   const todos = jsonStore.get('todos');
   const settings = jsonStore.get('settings');
-  console.log('TCL: HomePage -> settings', settings);
+  console.log('TCL: settings', settings);
 
+  // Define todos reset time job
+  schedule.scheduleJob(
+    `0 ${settings.resetMinutes} ${settings.resetHours} * * *`,
+    () => {
+      console.log('reset todos');
+    }
+  );
+
+  // Initiate todos notifications jobs
   todos.forEach(todo => {
     const date = new Date(todo.date);
     const minutes = date.getMinutes();
@@ -49,7 +58,7 @@ const HomePage = ({
         body: `It's ${hours}:${minutes}, you better work bitch!`
       });
     });
-    console.log('TCL: HomePage -> job', job, job.nextInvocation());
+    console.log('TCL: job', job);
   });
 
   return (
