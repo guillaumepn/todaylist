@@ -42,7 +42,6 @@ export default function TodoItem({
   };
 
   const onSelectTodo = () => {
-    console.log('TCL: onSelectTodo -> todo', todo);
     setSelectedTodo(todo);
   };
 

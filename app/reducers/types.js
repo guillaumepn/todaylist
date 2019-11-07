@@ -1,7 +1,8 @@
 import type { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux';
 
 export type RootState = {
-  todos: Todo[]
+  todos: Todo[],
+  settings: Settings
 };
 
 export type Todo = {
@@ -10,6 +11,11 @@ export type Todo = {
   +description: string,
   +status: boolean,
   +date: Date
+};
+
+export type Settings = {
+  +resetHours: number,
+  +resetMinutes: number
 };
 
 export type Action = {

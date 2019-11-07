@@ -53,10 +53,6 @@ const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
         t.id === todo.id ? { ...todo, text: todoName, date: todoDate } : t
       )
     );
-
-    // const n = new Notification(todoName, {
-    //   body: `it is ${todoHours}:${todoMinutes}`
-    // });
   };
 
   return (
