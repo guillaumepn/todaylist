@@ -58,16 +58,18 @@ const HomePage = ({
   );
 
   // Initiate todos notifications jobs
-  todos.forEach(todo => {
-    const date = new Date(todo.date);
-    const minutes = date.getMinutes();
-    const hours = date.getHours();
-    const job = schedule.scheduleJob(`0 ${minutes} ${hours} * * *`, () => {
-      new Notification(todo.text, {
-        body: `It's ${hours}:${minutes}, you better work bitch!`
+  todos
+    .filter(todo => !todo.status)
+    .forEach(todo => {
+      const date = new Date(todo.date);
+      const minutes = date.getMinutes();
+      const hours = date.getHours();
+      const job = schedule.scheduleJob(`0 ${minutes} ${hours} * * *`, () => {
+        new Notification(`TodayList: ${todo.text}`, {
+          body: `It's ${hours}:${minutes}, you better work bitch!`
+        });
       });
     });
-  });
 
   return (
     <>

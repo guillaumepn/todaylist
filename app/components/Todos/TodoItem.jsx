@@ -18,6 +18,9 @@ export default function TodoItem({
   isSelected
 }) {
   const toast = useToast();
+  const selectedStyle = isSelected
+    ? { color: 'green', textDecoration: 'underline' }
+    : {};
 
   const showToast = () => {
     toast({
@@ -58,9 +61,7 @@ export default function TodoItem({
       <Box
         as="button"
         onClick={onSelectTodo}
-        style={
-          isSelected ? { color: 'green', textDecoration: 'underline' } : {}
-        }
+        style={{ textAlign: 'left', ...selectedStyle }}
       >
         {todo.text}
       </Box>
