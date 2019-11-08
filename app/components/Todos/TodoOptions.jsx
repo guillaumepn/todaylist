@@ -18,13 +18,26 @@ import {
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
-  NumberDecrementStepper
+  NumberDecrementStepper,
+  useToast
 } from '@chakra-ui/core';
 
 const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
+  const toast = useToast();
+
+  const showToast = () => {
+    toast({
+      description: 'Task updated',
+      status: 'info',
+      duration: 3000,
+      isClosable: true
+    });
+  };
+
   const onOptionsSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     updateTodo(todos.map(t => (t.id === todo.id ? todo : t)));
+    showToast();
   };
 
   const onTodoNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {

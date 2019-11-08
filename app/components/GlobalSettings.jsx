@@ -17,42 +17,45 @@ import {
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
-  NumberDecrementStepper
+  NumberDecrementStepper,
+  useToast
 } from '@chakra-ui/core';
+import { initialSettingsState } from '../actions/settings';
 
 const GlobalSettings = ({ settings, updateSettings }) => {
-  const [resetHours, setResetHours] = useState(0);
-  const [resetMinutes, setResetMinutes] = useState(0);
+  const [stateSettings, setStateSettings] = useState(initialSettingsState);
+  const toast = useToast();
+
+  const showToast = () => {
+    toast({
+      description: 'Settings updated',
+      status: 'info',
+      duration: 3000,
+      isClosable: true
+    });
+  };
 
   useEffect(
     () => {
-      setResetHours(settings.resetHours);
-      setResetMinutes(settings.resetMinutes);
+      setStateSettings(settings);
     },
     [settings]
   );
 
   const onOptionsSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const newResetHours = Number(data.get('resetHours'));
-    const newResetMinutes = Number(data.get('resetMinutes'));
-    const newSettings = {
-      resetHours: newResetHours,
-      resetMinutes: newResetMinutes
-    };
-    updateSettings(newSettings);
+    updateSettings(stateSettings);
+    showToast();
   };
 
   const onResetHoursChange = (value: string) => {
     const hours = Number(value);
-    setResetHours(hours);
+    setStateSettings({ ...stateSettings, resetHours: hours });
   };
 
   const onResetMinutesChange = (value: string) => {
     const minutes = Number(value);
-    setResetMinutes(minutes);
+    setStateSettings({ ...stateSettings, resetMinutes: minutes });
   };
 
   return (
@@ -64,7 +67,7 @@ const GlobalSettings = ({ settings, updateSettings }) => {
           <FormLabel mt={4}>Tasks reset time</FormLabel>
           <Box display="flex" alignItems="center">
             <NumberInput
-              value={resetHours}
+              value={stateSettings.resetHours}
               min={0}
               max={23}
               onChange={onResetHoursChange}
@@ -77,7 +80,7 @@ const GlobalSettings = ({ settings, updateSettings }) => {
             </NumberInput>
             &nbsp;{':'}&nbsp;
             <NumberInput
-              value={resetMinutes}
+              value={stateSettings.resetMinutes}
               onChange={onResetMinutesChange}
               min={0}
               max={59}
