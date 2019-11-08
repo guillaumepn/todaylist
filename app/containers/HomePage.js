@@ -56,6 +56,9 @@ const HomePage = ({
     `0 ${settings.resetMinutes} ${settings.resetHours} * * *`,
     () => {
       resetTodos();
+      new Notification(`TodayList: It's reset time!`, {
+        body: `All tasks were unchecked 👌`
+      });
     }
   );
 
@@ -67,8 +70,8 @@ const HomePage = ({
       const minutes = date.getMinutes();
       const hours = date.getHours();
       const job = schedule.scheduleJob(`0 ${minutes} ${hours} * * *`, () => {
-        new Notification(`TodayList: ${todo.text}`, {
-          body: `It's ${hours}:${minutes}, you better work bitch!`
+        new Notification(`${hours}:${minutes} - ${todo.text}`, {
+          body: `Let's go! 💪`
         });
       });
     });
