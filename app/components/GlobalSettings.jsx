@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   Alert,
@@ -21,14 +21,23 @@ import {
 } from '@chakra-ui/core';
 
 const GlobalSettings = ({ settings, updateSettings }) => {
-  const [resetHours, setResetHours] = useState(settings.resetHours || 0);
-  const [resetMinutes, setResetMinutes] = useState(settings.resetMinutes || 0);
+  const [resetHours, setResetHours] = useState(0);
+  const [resetMinutes, setResetMinutes] = useState(0);
+
+  useEffect(
+    () => {
+      setResetHours(settings.resetHours);
+      setResetMinutes(settings.resetMinutes);
+    },
+    [settings]
+  );
+
   const onOptionsSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    const newResetHours = data.get('resetHours');
-    const newResetMinutes = data.get('resetMinutes');
+    const newResetHours = Number(data.get('resetHours'));
+    const newResetMinutes = Number(data.get('resetMinutes'));
     const newSettings = {
       resetHours: newResetHours,
       resetMinutes: newResetMinutes
@@ -37,13 +46,11 @@ const GlobalSettings = ({ settings, updateSettings }) => {
   };
 
   const onResetHoursChange = (value: string) => {
-    console.log('reset hours', value, typeof value);
     const hours = Number(value);
     setResetHours(hours);
   };
 
   const onResetMinutesChange = (value: string) => {
-    console.log('reset min');
     const minutes = Number(value);
     setResetMinutes(minutes);
   };

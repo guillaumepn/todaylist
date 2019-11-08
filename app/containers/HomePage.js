@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import schedule from 'node-schedule';
@@ -12,13 +12,21 @@ import type { Todo, Settings } from '../reducers/types';
 import GlobalSettings from '../components/GlobalSettings';
 
 type Props = {
+  todos: Todo[],
+  settings: Settings,
+  fetchTodos: () => void,
   createTodo: (todo: Todo) => void,
   updateTodo: (todos: Todo[]) => void,
   removeTodo: (todos: Todo[]) => void,
+  fetchSettings: () => void,
   updateSettings: (settings: Settings) => void
 };
 
 const HomePage = ({
+  todos,
+  settings,
+  fetchTodos,
+  fetchSettings,
   createTodo,
   updateTodo,
   removeTodo,
@@ -36,9 +44,10 @@ const HomePage = ({
 └───────────────────────── second (0 - 59, OPTIONAL)
    */
 
-  const todos = jsonStore.get('todos');
-  const settings = jsonStore.get('settings');
-  console.log('TCL: settings', settings);
+  useEffect(() => {
+    fetchTodos();
+    fetchSettings();
+  }, []);
 
   // Define todos reset time job
   schedule.scheduleJob(
@@ -58,7 +67,6 @@ const HomePage = ({
         body: `It's ${hours}:${minutes}, you better work bitch!`
       });
     });
-    console.log('TCL: job', job);
   });
 
   return (
