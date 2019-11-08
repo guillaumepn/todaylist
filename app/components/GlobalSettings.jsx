@@ -61,7 +61,7 @@ const GlobalSettings = ({ settings, updateSettings }) => {
 
       <form onSubmit={onOptionsSubmit}>
         <FormControl>
-          <FormLabel mt={4}>Time of task</FormLabel>
+          <FormLabel mt={4}>Tasks reset time</FormLabel>
           <Box display="flex" alignItems="center">
             <NumberInput
               value={resetHours}
@@ -92,8 +92,10 @@ const GlobalSettings = ({ settings, updateSettings }) => {
               (H:m)
             </FormHelperText>
           </Box>
-          <FormHelperText m={0} ml={4} fontStyle="italic">
-            (H:m)
+          <FormHelperText>
+            Everyday, when the above time comes, all tasks will be unchecked
+            <br />
+            (default is 00:00 AM)
           </FormHelperText>
           <Button type="submit" mt={4}>
             Update settings

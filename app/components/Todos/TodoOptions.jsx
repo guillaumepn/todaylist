@@ -99,6 +99,9 @@ const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
                 (H:m)
               </FormHelperText>
             </Box>
+            <FormHelperText>
+              You will receive a desktop notification at this time, everyday
+            </FormHelperText>
             <Button type="submit" mt={4}>
               Update task
             </Button>
