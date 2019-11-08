@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 
 import {
@@ -6,12 +7,13 @@ import {
   AlertTitle,
   AlertDescription,
   Box,
+  Button,
+  Checkbox,
   Input,
   FormControl,
   FormLabel,
   FormErrorMessage,
   FormHelperText,
-  Button,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
@@ -22,25 +24,11 @@ import {
 const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
   const onOptionsSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const todoName = data.get('todoName');
-    const todoHours = data.get('todoHours');
-    const todoMinutes = data.get('todoMinutes');
-
-    const todoDate = new Date(todo.date);
-    todoDate.setHours(parseInt(todoHours));
-    todoDate.setMinutes(parseInt(todoMinutes));
-
-    updateTodo(
-      todos.map(t =>
-        t.id === todo.id ? { ...todo, text: todoName, date: todoDate } : t
-      )
-    );
+    updateTodo(todos.map(t => (t.id === todo.id ? todo : t)));
   };
 
   const onTodoNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedTodo({ ...todo, text: event.currentTarget.value });
+    setSelectedTodo({ ...todo, title: event.currentTarget.value });
   };
 
   const onTodoHoursChange = (value: string) => {
@@ -55,6 +43,13 @@ const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
     setSelectedTodo({ ...todo, date });
   };
 
+  const toggleTodoDisableNotification = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { checked } = event.currentTarget;
+    setSelectedTodo({ ...todo, disableNotification: checked });
+  };
+
   return (
     <Box mt={4} p={4} style={{ border: '1px solid lightgray' }}>
       {todo ? (
@@ -66,7 +61,7 @@ const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
               id="todoName"
               name="todoName"
               onChange={onTodoNameChange}
-              value={todo.text}
+              value={todo.title}
             />
             <FormLabel mt={4}>Time of task</FormLabel>
             <Box display="flex" alignItems="center">
@@ -102,6 +97,20 @@ const TodoOptions = ({ todo, todos, setSelectedTodo, updateTodo }) => {
             <FormHelperText>
               You will receive a desktop notification at this time, everyday
             </FormHelperText>
+            <Box mt={4}>
+              <FormLabel>
+                <Checkbox
+                  size="lg"
+                  variantColor="green"
+                  type="checkbox"
+                  isChecked={todo.disableNotification}
+                  onChange={toggleTodoDisableNotification}
+                  mr={2}
+                  name="todoDisableNotification"
+                />
+                Disable desktop notification for this task
+              </FormLabel>
+            </Box>
             <Button type="submit" mt={4}>
               Update task
             </Button>

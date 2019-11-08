@@ -1,3 +1,4 @@
+// @flow
 import type { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux';
 
 export type RootState = {
@@ -10,7 +11,8 @@ export type Todo = {
   +title: string,
   +description: string,
   +status: boolean,
-  +date: Date
+  +date: Date,
+  +disableNotification: boolean
 };
 
 export type Settings = {

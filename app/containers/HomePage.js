@@ -64,13 +64,13 @@ const HomePage = ({
 
   // Initiate todos notifications jobs
   todos
-    .filter(todo => !todo.status)
+    .filter(todo => !todo.status && !todo.disableNotification)
     .forEach(todo => {
       const date = new Date(todo.date);
       const minutes = date.getMinutes();
       const hours = date.getHours();
       const job = schedule.scheduleJob(`0 ${minutes} ${hours} * * *`, () => {
-        new Notification(`${hours}:${minutes} - ${todo.text}`, {
+        new Notification(`${hours}:${minutes} - ${todo.title}`, {
           body: `Let's go! 💪`
         });
       });

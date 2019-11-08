@@ -63,7 +63,7 @@ export default function TodoItem({
         onClick={onSelectTodo}
         style={{ textAlign: 'left', ...selectedStyle }}
       >
-        {todo.text}
+        {todo.title}
       </Box>
       <CloseButton onClick={removeTodoItem} size="sm" mx={1} />
     </Flex>
