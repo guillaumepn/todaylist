@@ -3,6 +3,7 @@ import { jsonStore } from '../store';
 import type { Todo } from '../reducers/types';
 
 export const FETCH_TODOS = 'FETCH_TODOS';
+export const RESET_TODOS = 'RESET_TODOS';
 export const CREATE_TODO = 'CREATE_TODO';
 export const UPDATE_TODO = 'UPDATE_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
@@ -14,6 +15,16 @@ export const fetchTodos = () => {
   return {
     type: FETCH_TODOS,
     payload: todos
+  };
+};
+
+export const resetTodos = () => {
+  const todos = jsonStore.get('todos');
+  const updatedTodos = todos.map(todo => ({ ...todo, status: false }));
+  jsonStore.set('todos', updatedTodos);
+  return {
+    type: RESET_TODOS,
+    payload: updatedTodos
   };
 };
 

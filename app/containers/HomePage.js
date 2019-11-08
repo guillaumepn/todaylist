@@ -15,6 +15,7 @@ type Props = {
   todos: Todo[],
   settings: Settings,
   fetchTodos: () => void,
+  resetTodos: () => void,
   createTodo: (todo: Todo) => void,
   updateTodo: (todos: Todo[]) => void,
   removeTodo: (todos: Todo[]) => void,
@@ -26,6 +27,7 @@ const HomePage = ({
   todos,
   settings,
   fetchTodos,
+  resetTodos,
   fetchSettings,
   createTodo,
   updateTodo,
@@ -50,10 +52,10 @@ const HomePage = ({
   }, []);
 
   // Define todos reset time job
-  schedule.scheduleJob(
+  const resetTodosJob = schedule.scheduleJob(
     `0 ${settings.resetMinutes} ${settings.resetHours} * * *`,
     () => {
-      console.log('reset todos');
+      resetTodos();
     }
   );
 
