@@ -1,5 +1,9 @@
 # TodayList
 
+TodayList is a todo-app oriented for daily habits and tasks
+
+![TodayList insight](./todaylist-insight.png)
+
 TODO :
 
 - [x] Set time/date for a todo
