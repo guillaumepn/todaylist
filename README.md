@@ -4,6 +4,10 @@ TodayList is a todo-app oriented towards daily habits and tasks.
 
 It was developed with Electron, React, Redux, and Chakra UI.
 
+### Download
+
+Visit the [release page](https://github.com/guillaumepn/todaylist/releases) to download the app.
+
 ![TodayList insight](./todaylist-insight.png)
 
 TODO :
