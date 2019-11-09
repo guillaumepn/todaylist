@@ -103,7 +103,7 @@
       "provider": "github",
       "owner": "guillaumepn",
       "repo": "todaylist",
-      "private": true
+      "private": false
     }
   },
   "repository": {
